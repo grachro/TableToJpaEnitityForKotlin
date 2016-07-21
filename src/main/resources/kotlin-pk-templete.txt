@@ -1,0 +1,17 @@
+package [[ ${package} ]]
+
+import java.io.Serializable[# th:if="${table.hasTimestampPkField}"]
+import java.sql.Timestamp[/]
+import javax.persistence.Column
+import javax.persistence.Embeddable
+
+@Embeddable
+data class [[ ${entityClass} ]]Pk ([# th:each="col,colStat : ${table.pkCols}"]
+
+    @Column(name = "[[ ${col.name} ]]")
+    val [[ ${col.field} ]]: [[${col.kotlinSuffix}]][# th:if="${!colStat.last}"],[/]
+[/]
+
+): Serializable {
+    constructor() : this([# th:utext="${table.pkColDefaultValues}" /])
+}
