@@ -13,7 +13,7 @@ fun main(args : Array<String>) {
     val driver = dbProps.getProperty("driverClass")
 
 
-    File("out").mkdirs()
+    File("out/base").mkdirs()
 
     val tblProps = Properties()
     tblProps.load(Properties::class.java.getResourceAsStream("/table.properties"))
@@ -40,6 +40,10 @@ fun main(args : Array<String>) {
             val pkText = tbl.createEntity("kotlin-pk-templete.txt", toPackage, toEntityClass)
             File("out/${toEntityClass}Pk.kt").writeText(pkText, Charsets.UTF_8)
         }
+
+
+        val basetext = tbl.createEntity("kotlin-entity-base-templete.txt",toPackage, toEntityClass)
+        File("out/base/Abstract${toEntityClass}.kt").writeText(basetext, Charsets.UTF_8)
 
         val text = tbl.createEntity("kotlin-entity-templete.txt",toPackage, toEntityClass)
         File("out/${toEntityClass}.kt").writeText(text, Charsets.UTF_8)

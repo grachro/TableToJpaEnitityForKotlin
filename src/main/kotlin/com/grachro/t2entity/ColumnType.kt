@@ -1,7 +1,11 @@
 package com.grachro.t2entity
 
-enum class ColumnType {
-    INT, STRING, TIMESTAMP,ETC,
+enum class ColumnType(val primitive:Boolean) {
+    INT(true),
+    STRING(false),
+    BOOLEAN(true),
+    TIMESTAMP(false),
+    ETC(false),
     ;
 
     companion object {
@@ -10,8 +14,11 @@ enum class ColumnType {
                 "INT" -> INT
                 "CHAR","VARCHAR" -> STRING
                 "DATETIME","DATE","TIMESTAMP" -> TIMESTAMP
+                "BIT" -> BOOLEAN
                 else -> ETC
             }
         }
     }
+
+
 }

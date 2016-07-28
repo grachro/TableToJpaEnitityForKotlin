@@ -1,29 +1,10 @@
 package [[ ${package} ]]
 
-[# th:if="${table.hasTimestampNormalField}"]
-import java.sql.Timestamp[/][# th:unless="${table.normalCols.isEmpty}"]
-import javax.persistence.Column[/][# th:if="${table.needEmbeddedId}"]
-import javax.persistence.EmbeddedId[/]
-import javax.persistence.Entity[# th:unless="${table.needEmbeddedId}"]
-import javax.persistence.Id[/]
-import javax.persistence.Table[# th:unless="${table.normalCols.isEmpty}"]
-import javax.validation.constraints.NotNull[/]
+import javax.persistence.Entity
+import javax.persistence.Table
+import [[ ${package} ]].base.Abstract[[ ${entityClass} ]]
 
 @Entity
 @Table(name = "[[ ${tableName} ]]")
-class [[ ${entityClass} ]] {[# th:if="${table.needEmbeddedId}"]
-
-    @EmbeddedId
-    lateinit var id: [[ ${entityClass} ]]Pk
-[/][# th:unless="${table.needEmbeddedId}"]
-
-    @Id
-    @Column(name = "[[ ${table.singlePkCol.name}]]")
-    lateinit var [[ ${table.singlePkCol.field}]]: [[ ${table.singlePkCol.kotlinSuffix}]]
-[/][# th:each="col : ${table.normalCols}"]
-
-    @Column(name = "[[ ${col.name} ]]")[# th:if="${!col.nullable}"]
-    @NotNull[/]
-    [[${col.kotlinPrefix}]] [[ ${col.field} ]]: [[${col.kotlinSuffix}]]
-[/]
+class [[ ${entityClass} ]]:Abstract[[ ${entityClass} ]]() {
 }
